@@ -1,20 +1,15 @@
 const through = require("through2")
 
-// const sumProfit = (profitList) => {
-//     for (profit of profitList){
-//         sum += parseFloat(profit)
-//     }
-//     return sum
-// }
+let sum = 0
 
 const sumProfit = () => {
-    return through(function (buf, enc, next){
-        // if (buf.country === country) {
-        //     console.log(buf.country, buf.profit)
-        //     next(null, buf.profit)
-        // }
+    return through.obj(function(buf, enc, next){
         console.log(buf)
-        next(null, 0)
+        sum += parseFloat(buf.profit)
+        next()
+    },
+    (next) => {
+        next(null, `${sum.toFixed(2)}`)
     })
 }
 
